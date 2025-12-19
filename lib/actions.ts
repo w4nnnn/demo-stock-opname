@@ -77,6 +77,7 @@ export async function createSession(title: string) {
         created_at: new Date(),
     });
     revalidatePath('/session');
+    revalidatePath('/staff');
 }
 
 /**
@@ -91,6 +92,7 @@ export async function finalizeSession(id: number) {
         })
         .where(eq(opnameSessions.id, id));
     revalidatePath('/session');
+    revalidatePath('/staff');
 }
 
 /**
@@ -103,6 +105,7 @@ export async function toggleSessionLock(id: number, currentStatus: string) {
         .set({ status: newStatus as 'OPEN' | 'LOCKED' })
         .where(eq(opnameSessions.id, id));
     revalidatePath('/session');
+    revalidatePath('/staff');
 }
 
 /**
@@ -111,6 +114,7 @@ export async function toggleSessionLock(id: number, currentStatus: string) {
 export async function deleteSession(id: number) {
     await db.delete(opnameSessions).where(eq(opnameSessions.id, id));
     revalidatePath('/session');
+    revalidatePath('/staff');
 }
 
 // --- Product Management Actions ---
